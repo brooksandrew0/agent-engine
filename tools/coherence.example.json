@@ -1,0 +1,83 @@
+{
+  "_comment": "Example rules for tools/coherence_check.py. Keys starting with _ are comments. Copy this file, then change the globs and phrases to your repo's conventions.",
+  "status": {
+    "_comment": "A doc's status: front matter `status:`, else the first 'Status:' line in the first 15 lines, else a title like '# Plan (proposed)'.",
+    "front_matter_key": "status",
+    "line": "^\\W*Status\\W*:\\W*(.*)$",
+    "lines": 15,
+    "title": "^#\\s.*\\((proposed|draft|not installed)\\)\\s*$"
+  },
+  "rules": [
+    {
+      "_comment": "A plan or service doc says it is not live, but its own install record, a status row, or the doc its status links to says it is.",
+      "id": "stale-header",
+      "type": "stale-status",
+      "files": ["docs/plans/**/*.md", "docs/services/**/*.md"],
+      "claims": "not installed|not built|\\bproposed\\b|not run\\b|awaiting",
+      "unless": "installed (on|at|in) |live since|\\bdeclined\\b",
+      "record_heading": "\\b(re)?install(ed)? record\\b",
+      "tables": ["docs/status.md"],
+      "row_says": "\\binstalled (on|at) |\\binstalled \\d|live since",
+      "follow_links": true
+    },
+    {
+      "_comment": "A 'not installed' heading with an install record inside its own section.",
+      "id": "stale-section",
+      "type": "stale-section",
+      "files": ["docs/**/*.md"],
+      "heading": "not installed",
+      "record_heading": "\\b(re)?install(ed)? record\\b"
+    },
+    {
+      "_comment": "Every plan states a status.",
+      "id": "no-status",
+      "type": "missing-status",
+      "files": ["docs/plans/**/*.md"],
+      "exclude": ["docs/plans/README.md"]
+    },
+    {
+      "_comment": "A plan still open three weeks after the newest date in its status.",
+      "id": "stale-open-status",
+      "type": "stale-open-status",
+      "files": ["docs/plans/**/*.md"],
+      "open": "\\bproposed\\b|\\bdraft\\b|not run\\b|awaiting",
+      "unless": "installed (on|at|in) |live since",
+      "max_days": 21
+    },
+    {
+      "_comment": "Front matter: known status values, an owner, two-way supersedes links, review dates.",
+      "id": "front-matter",
+      "type": "front-matter",
+      "files": ["docs/plans/**/*.md", "docs/services/**/*.md"],
+      "allowed": ["proposed", "accepted", "built", "installed", "live", "declined", "superseded", "archived"],
+      "required": ["status", "owner"],
+      "closed": ["superseded", "archived", "declined"]
+    },
+    {
+      "_comment": "A status row still waits on answers that a linked doc records with a date.",
+      "id": "status-row-answered",
+      "type": "answered-row",
+      "tables": ["docs/status.md"],
+      "asks": "\\b(answers?|decide|decisions?|questions?)\\b",
+      "done": "^\\W*(none|no action planned)\\b",
+      "answered": "^\\W*\\*\\*(Answered|Decided)\\b"
+    },
+    {
+      "_comment": "A plan still proposed or accepted while a doc that implements it is live.",
+      "id": "implemented-by",
+      "type": "implemented-by",
+      "files": ["docs/plans/**/*.md"],
+      "key": "implemented_by",
+      "not_built": ["proposed", "accepted"],
+      "live": ["installed", "live"],
+      "record_heading": "\\b(re)?install(ed)? record\\b"
+    },
+    {
+      "_comment": "One-file-per-entry log fragments (same rules as tools/fold_logs.py --check).",
+      "id": "log-fragment",
+      "type": "log-fragments",
+      "dirs": ["decisions.d", "changelog.d"],
+      "ignore": ["README.md"]
+    }
+  ]
+}

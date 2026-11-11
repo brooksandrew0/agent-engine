@@ -1,0 +1,16 @@
+#!/bin/sh
+# Runs the local checks before every push. Opt-in, once per clone:
+#   git config core.hooksPath .githooks
+# `git push --no-verify` skips it, so it is a second layer, not the merge signal.
+# 1. The commits being pushed (messages, authors, committers, patches), from git's stdin.
+# 2. The tests and the index scan. Exit 2 (gitleaks not installed) still lets the push through:
+#    the PR verifier runs gitleaks on every PR.
+#    A committed ci_local.json replaces this whole set (deny-scan and gitleaks too); ci_local names it first.
+python3 -I tools/deny_scan.py --pre-push || exit 1
+python3 -I tools/ci_local.py
+code=$?
+if [ "$code" -eq 2 ]; then
+  echo "pre-push: a check was skipped for a missing tool; pushing anyway" >&2
+  exit 0
+fi
+exit "$code"

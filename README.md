@@ -67,5 +67,4 @@ limits, the life of a request, and the trust model.
 - [`STARTER.md`](STARTER.md): a prompt you fill in for your own setup to get a build roadmap.
 - [`docs/checks.md`](docs/checks.md): how this repo keeps private material out.
 
-This repo doesn't take issues or pull requests. To reach me, use the contact details on
-[andrewbrooks.fyi](https://andrewbrooks.fyi). MIT licensed; see [`LICENSE`](LICENSE).
+This repo doesn't take issues or pull requests. MIT licensed; see [`LICENSE`](LICENSE).

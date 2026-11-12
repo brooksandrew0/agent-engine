@@ -10,7 +10,7 @@ Since 2026-11-02 every design and diff in a build run went to a clean-context ju
 reviewer, got fixed, and went back for re-review until both called it settled. I still want that:
 the reviews catch real problems before anything reaches me as done. But "until settled" had no
 limit. The drift-loop design took four rounds of both reviews (2026-11-05). The brain read
-telemetry plan took three (2026-11-03), and so did the job-search design (2026-11-06).
+telemetry plan took three (2026-11-03).
 
 On 2026-11-07 reviews were about 20% of a day's laptop usage: about 30 passes at 80k to 160k tokens
 of context each, with second and third rounds spent on small fixes ([thin

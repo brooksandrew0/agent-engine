@@ -31,13 +31,13 @@ engine itself runs from a private repo.
 <!-- public-facts:start -->
 | Measure | Value |
 |---|---|
-| Days since the first commit (2026-09-20) | 52 |
-| Commits | 1,877 |
-| Merged pull requests | 484 |
-| Written by agents (`claude/` or `job/` branches) | 477 |
-| Recorded decision entries (each dated, with its source) | 284 |
+| Days since the first commit (2026-09-20) | 63 |
+| Commits | 2,605 |
+| Merged pull requests | 660 |
+| Written by agents (`claude/` or `job/` branches) | 653 |
+| Recorded decision entries (each dated, with its source) | 388 |
 
-Counts as of 2026-11-11, end of day (America/Chicago).
+Counts as of 2026-11-22, end of day (America/Chicago).
 <!-- public-facts:end -->
 
 ## The system
